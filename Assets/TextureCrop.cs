@@ -5,6 +5,8 @@ using UnityEngine;
 public class TextureCrop : MonoBehaviour
 {
     public Material crop_material;
+    public Material flip_material;
+    public RenderTexture intermediate_buffer;
 
     void OnRenderImage(RenderTexture src, RenderTexture dst)
     {
@@ -34,6 +36,12 @@ public class TextureCrop : MonoBehaviour
                                     new Vector4(top_right_uv.x, top_right_uv.y, 0.0f, 0.0f),
                                     new Vector4(bottom_left_uv.x, bottom_left_uv.y, 0.0f, 0.0f),
                                     new Vector4(bottom_right_uv.x, bottom_right_uv.y, 0.0f, 0.0f)};
+
+        Debug.Log("uvs");
+        Debug.Log(top_left_uv);
+        Debug.Log(top_right_uv);
+        Debug.Log(bottom_right_uv);
+        Debug.Log(bottom_left_uv);
 
         // top left -> top right -> bottom right -> bottom left
         // thank you https://math.stackexchange.com/questions/3037040/normalized-coordinate-of-point-on-4-sided-concave-polygon and in shader
@@ -70,6 +78,8 @@ public class TextureCrop : MonoBehaviour
         crop_material.SetVectorArray("_perspective_screen_corners", corrected_uvs);
         crop_material.SetMatrix("_screen_distortion_matrix", distortion_mat);
 
-        Graphics.Blit(src, dst, crop_material);
+        //RenderTexture intermediate_buffer = new RenderTexture();
+        Graphics.Blit(src, intermediate_buffer, crop_material);
+        Graphics.Blit(intermediate_buffer, dst, flip_material);
     }
 }

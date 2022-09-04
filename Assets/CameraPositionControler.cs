@@ -64,9 +64,8 @@ public class CameraPositionControler : MonoBehaviour
     }
     void Update()
     {
+        // Lookat perspective screen incase attach is not successful
         GameObject perspective_screen = GameObject.Find("PerspectiveScreen");
-
-        // Lookat the middle of the perspective screen
         transform.LookAt(perspective_screen.transform.TransformPoint(new Vector3(0.0f, 0.0f, 0.5f)));
 
         if (!attachSuccessful)
@@ -85,6 +84,9 @@ public class CameraPositionControler : MonoBehaviour
             perspective_screen.transform.rotation = Quaternion.Euler(new Vector3(s_memory[6], -s_memory[7], -s_memory[8]));
             perspective_screen.transform.localScale = new Vector3(s_memory[9], s_memory[10], s_memory[11]);
         }
+
+        // Lookat the middle of the perspective screen, now that positions have been updated
+        transform.LookAt(perspective_screen.transform.TransformPoint(new Vector3(0.0f, 0.0f, 0.5f)));
     }
 
     void OnApplicationQuit()

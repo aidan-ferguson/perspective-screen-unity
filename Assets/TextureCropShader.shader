@@ -48,8 +48,7 @@ Shader "Custom/TextureCropShader"
                 float3x3 dist_mat = (float3x3)_screen_distortion_matrix;
                 float3 normal_coordinate = float3(i.uv.x, i.uv.y, 1.0f);
                 float3 distored_coordinate = mul(normal_coordinate, dist_mat);
-                // Image is flipped so do 1-y to flip again
-                fixed4 col = tex2D(_MainTex, float2(distored_coordinate.x/distored_coordinate.z, 1-(distored_coordinate.y/distored_coordinate.z)));
+                fixed4 col = tex2D(_MainTex, float2(distored_coordinate.x/distored_coordinate.z, distored_coordinate.y/distored_coordinate.z));
                 return fixed4(col);
             }
             ENDCG
