@@ -40,7 +40,7 @@ public class CameraFOVController : MonoBehaviour
         left_diagonal_angle = left_diagonal_angle * (180.0f / Mathf.PI);
         right_diagonal_angle = right_diagonal_angle * (180.0f / Mathf.PI);
 
-        return Mathf.Max(left_diagonal_angle, right_diagonal_angle);
+        return Mathf.Max(left_diagonal_angle, right_diagonal_angle) + 0.2f * Mathf.Max(left_diagonal_angle, right_diagonal_angle);
     }
 
     // Update is called once per frame

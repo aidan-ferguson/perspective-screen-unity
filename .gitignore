@@ -58,3 +58,8 @@ sysinfo.txt
 # Crashlytics generated file
 crashlytics-build.properties
 
+# Takes up too much space
+*.jpg
+*.jpg.meta
+*.png
+*.png.meta

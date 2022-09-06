@@ -39,6 +39,8 @@ public class CameraPositionControler : MonoBehaviour
     private IntPtr pBuffer;
     bool attachSuccessful;
 
+    public float look_speed = 2.0f;
+
     void Start()
     {
         sHandle = new SafeFileHandle(hHandle, true);
@@ -86,7 +88,10 @@ public class CameraPositionControler : MonoBehaviour
         }
 
         // Lookat the middle of the perspective screen, now that positions have been updated
-        transform.LookAt(perspective_screen.transform.TransformPoint(new Vector3(0.0f, 0.0f, 0.5f)));
+        Quaternion target_rotation = Quaternion.LookRotation(perspective_screen.transform.TransformPoint(new Vector3(0.0f, 0.0f, 0.5f)) - transform.position);
+
+        // Smoothly rotate towards the target point.
+        transform.rotation = Quaternion.Slerp(transform.rotation, target_rotation, look_speed * Time.deltaTime);
     }
 
     void OnApplicationQuit()

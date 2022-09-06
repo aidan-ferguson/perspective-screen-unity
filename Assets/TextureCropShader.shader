@@ -39,6 +39,19 @@ Shader "Custom/TextureCropShader"
             {
                 v2f o;
                 o.uv = v.uv;
+                // if(v.uv.x == 0.0f && v.uv.y == 0.0f){
+                //     // Bottom left
+                //     o.uv = float2(_perspective_screen_corners[2].x, _perspective_screen_corners[2].y);
+                // } else if(v.uv.x == 0.0f && v.uv.y == 1.0f) {
+                //     // Top left
+                //     o.uv = float2(_perspective_screen_corners[0].x, _perspective_screen_corners[0].y);
+                // } else if(v.uv.x == 1.0f && v.uv.y == 0.0f) {
+                //     // Bottom right
+                //     o.uv = float2(_perspective_screen_corners[3].x, _perspective_screen_corners[3].y);
+                // } else if(v.uv.x == 1.0f && v.uv.y == 1.0f) {
+                //     // Top right
+                //     o.uv = float2(_perspective_screen_corners[1].x, _perspective_screen_corners[1].y);
+                // }
                 o.vertex = UnityObjectToClipPos(v.vertex);
                 return o;
             }
