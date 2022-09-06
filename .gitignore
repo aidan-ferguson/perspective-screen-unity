@@ -61,5 +61,7 @@ crashlytics-build.properties
 # Takes up too much space
 *.jpg
 *.jpg.meta
+*.jpeg
+*.jpeg.meta
 *.png
 *.png.meta
